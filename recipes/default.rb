@@ -33,7 +33,7 @@
   if node['yum'][repo]['managed']
     include_recipe 'yum-epel' unless run_context.loaded_recipe?('yum-epel')
 
-    yum_repository repo do
+    y=yum_repository repo do
       description node['yum'][repo]['description']
       baseurl node['yum'][repo]['baseurl']
       mirrorlist node['yum'][repo]['mirrorlist']
@@ -61,7 +61,8 @@
       sslclientkey node['yum'][repo]['sslclientkey']
       sslverify node['yum'][repo]['sslverify']
       timeout node['yum'][repo]['timeout']
-      action :create
+      action :nothing
     end
+    y.run_action(:create)
   end
 end
